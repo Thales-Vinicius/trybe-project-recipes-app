@@ -1,35 +1,38 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import drinkIcon from '../../images/drinkIcon.svg';
 import exploreIcon from '../../images/exploreIcon.svg';
 import foodIcon from '../../images/mealIcon.svg';
 
-function Footer() {
+export default function Footer() {
+  const history = useHistory();
+
+  function handleClick({ target: { name } }) {
+    history.push(name);
+  }
+
+  function btn(name, src, idTest) {
+    return (
+      <button onClick={ handleClick } type="button">
+        <img
+          alt={ name }
+          name={ `/${name}` }
+          src={ src }
+          data-testid={ `${idTest}-bottom-btn` }
+          className="d-flex btn btn-link btn-floating m-1"
+        />
+      </button>
+    );
+  }
+
   return (
     <footer
       data-testid="footer"
-      className="bg-light p-1 fixed-bottom d-flex justify-content-between footer"
+      className="bg-light p-1 fixed-bottom d-flex justify-content-between footer w-100"
     >
-      <Link
-        to="/bebidas"
-        className="d-flex btn btn-link btn-floating m-1"
-      >
-        <img src={ drinkIcon } alt="drinks" data-testid="drinks-bottom-btn" />
-      </Link>
-      <Link
-        to="/explorar"
-        className="d-flex btn btn-link btn-floating m-1"
-      >
-        <img src={ exploreIcon } alt="drinks" data-testid="explore-bottom-btn" />
-      </Link>
-      <Link
-        to="/comidas"
-        className="d-flex btn btn-link btn-floating m-1"
-      >
-        <img src={ foodIcon } alt="drinks" data-testid="food-bottom-btn" />
-      </Link>
+      {btn('bebidas', drinkIcon, 'drinks')}
+      {btn('explorar', exploreIcon, 'explore')}
+      {btn('comidas', foodIcon, 'food')}
     </footer>
   );
 }
-
-export default Footer;
