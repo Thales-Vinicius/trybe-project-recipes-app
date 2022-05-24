@@ -10,6 +10,7 @@ import { fetchByCategory, fetchCategories, fetchRecipes } from '../../services';
 function Drinks() {
   const { search } = useLocation();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const query = new URLSearchParams(search);
 
   const {
@@ -54,7 +55,7 @@ function Drinks() {
     } else {
       getByCategory();
     }
-  }, [setRecipes, setCategories, selectedCategory]);
+  }, [setRecipes, setCategories, selectedCategory, query, fetchSearchBar]);
 
   return (
     <>
